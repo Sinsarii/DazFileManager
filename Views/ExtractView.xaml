@@ -23,24 +23,28 @@
         <local:ExtractViewLeftColumn Grid.Column="0" Margin="5"/>
         
         <!--Right Main Column: List of Files-->
-        <ListView Grid.Column="1" ItemsSource="{Binding FileDetails}" SelectionMode="Multiple">
+        <ListView Grid.Column="1" ItemsSource="{Binding FileDetails}" SelectionMode="Single"> 
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/><!--Filename-->
+                            <ColumnDefinition Width="Auto"/><!--CheckBox-->
+                            <ColumnDefinition Width="*"/><!--Filename-->
                             <ColumnDefinition Width="Auto"/><!--Filesize-->
                             <ColumnDefinition Width="Auto"/><!--DownloadDate-->
                         </Grid.ColumnDefinitions>
                         
-                        <!--Filename-->
-                        <TextBlock Text="{Binding Filename}" Grid.Column="0" Margin="3"/>
+                        <!--Checkbox-->
+                        <CheckBox IsChecked="{Binding IsSelected}" Grid.Column="0" Margin="3"/>
 
                         <!--Filename-->
-                        <TextBlock Text="{Binding Filesize}" Grid.Column="1" Margin="3"/>
+                        <TextBlock Text="{Binding Filename}" Grid.Column="1" Margin="3"/>
 
                         <!--Filename-->
-                        <TextBlock Text="{Binding DownloadDate}" Grid.Column="2" Margin="3"/>
+                        <TextBlock Text="{Binding Filesize}" Grid.Column="2" Margin="3"/>
+
+                        <!--Filename-->
+                        <TextBlock Text="{Binding DownloadDate}" Grid.Column="3" Margin="3"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
