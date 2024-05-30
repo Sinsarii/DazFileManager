@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DazFileManager.Infrastructure;
+using DazFileManager.Services;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,16 +34,16 @@ namespace DazFileManager.ViewModels
 
         private void ShowHomeView()
         {
-            CurrentViewModel = new HomeViewModel();
+            CurrentViewModel = DIContainer.ServiceProvider.GetRequiredService<HomeViewModel>();
         }
 
         private void ShowSettingsView()
         {
-            CurrentViewModel = new SettingsViewModel();
+            CurrentViewModel = DIContainer.ServiceProvider.GetRequiredService<SettingsViewModel>();
         }
         private void ShowExtractView()
         {
-            CurrentViewModel = new ExtractViewModel();
+            CurrentViewModel = DIContainer.ServiceProvider.GetRequiredService<ExtractViewModel>();
         }
     }
 }

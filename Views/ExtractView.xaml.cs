@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DazFileManager.Infrastructure;
+using DazFileManager.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +26,9 @@ namespace DazFileManager.Views
         public ExtractView()
         {
             InitializeComponent();
+
+            var viewModel = DIContainer.ServiceProvider.GetRequiredService<ExtractViewModel>();
+            DataContext = viewModel;
         }
     }
 }
