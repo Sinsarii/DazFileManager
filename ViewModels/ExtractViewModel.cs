@@ -48,6 +48,12 @@ namespace DazFileManager.ViewModels
             //lambda expression here to initialize checkbox toggle relay so it can be used. throws an error if you dont initialize it with anything because relaycommand expects an action when intializing. only a problem on initialization. 
             ToggleSelectCommand = new RelayCommand(() => ToggleSelect(null));
         }
+
+        public ExtractViewModel()
+        {
+
+
+        }
     }
 
 
