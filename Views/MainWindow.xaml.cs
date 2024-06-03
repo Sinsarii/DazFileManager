@@ -19,6 +19,7 @@ namespace DazFileManager
         public MainWindow()
         {
             InitializeComponent();
+            Show();
         }
     }
 }

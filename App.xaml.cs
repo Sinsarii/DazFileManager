@@ -17,9 +17,6 @@ namespace DazFileManager
 
             DIContainer.ConfigureServices();
 
-            //var mainWindow = DIContainer.ServiceProvider.GetRequiredService<MainWindow>();
-            //mainWindow.Show();
         }
     }
-
 }

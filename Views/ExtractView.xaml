@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
-        <vm:ExtractViewModel />
+        <vm:ExtractViewModel/>
     </UserControl.DataContext>
     <Grid>
         <!-- Column Definitions for Left and Right Sections-->
@@ -22,6 +22,9 @@
         <!--Left Main Column, Operational Buttons and Error Viewing Logging-->
         <local:ExtractViewLeftColumn Grid.Column="0" Margin="5"/>
         
+        <!--GridSplitter-->
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
         <!--Right Main Column: List of Files-->
         <ListView Grid.Column="1" ItemsSource="{Binding FileDetails}" SelectionMode="Single"> 
             <ListView.ItemTemplate>
