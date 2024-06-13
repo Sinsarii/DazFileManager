@@ -14,9 +14,9 @@
         <!-- Column Definitions for Left and Right Sections-->
         <Grid.ColumnDefinitions>
             <!--Left Main Column, Operational Buttons and Error Viewing Logging-->
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="2*"/>
             <!--Right Main Column, Listview of Files with information-->
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
         <!--Left Main Column, Operational Buttons and Error Viewing Logging-->

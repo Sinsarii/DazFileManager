@@ -24,6 +24,7 @@ namespace DazFileManager.Infrastructure
         private static void Configure (IServiceCollection services)
         {
             services.AddTransient<IFileScannerService, FileScannerService>();
+            services.AddSingleton<FolderCollectionService>();
             services.AddTransient<MainWindow>();
             services.AddTransient<MainViewModel>();
             services.AddTransient<ExtractViewModel>();

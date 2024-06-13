@@ -13,7 +13,11 @@ namespace DazFileManager.ViewModels
     public class ExtractViewModel : ViewModelBase
     {
         private readonly IFileScannerService _fileScannerService;
+        private readonly FolderCollectionService _folderCollectionService;
         public ObservableCollection<FileDetailModel> FileDetails { get; } = new ObservableCollection<FileDetailModel>();
+
+        public ObservableCollection<string> FolderCollection_Downloads => _folderCollectionService.FolderCollection_Downloads;
+
 
         // Command that toggles selection
         public ICommand ToggleSelectCommand { get; }
@@ -40,10 +44,10 @@ namespace DazFileManager.ViewModels
             }
         }
 
-        public ExtractViewModel(IFileScannerService fileScannerService)
+        public ExtractViewModel(IFileScannerService fileScannerService, FolderCollectionService folderCollectionService)
         {
             _fileScannerService = fileScannerService;
-
+            _folderCollectionService = folderCollectionService;
             LoadFileDetails();
             //lambda expression here to initialize checkbox toggle relay so it can be used. throws an error if you dont initialize it with anything because relaycommand expects an action when intializing. only a problem on initialization. 
             ToggleSelectCommand = new RelayCommand(() => ToggleSelect(null));

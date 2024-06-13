@@ -7,6 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <!-- File Operations Box-->
+            <RowDefinition Height="1*"/>
+            <!-- Error Log Box-->
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <local:CollapsibleFolderSelectionBox Grid.Row="0" ItemsSource="{Binding FolderCollection_Downloads}"/>
+
     </Grid>
 </UserControl>
