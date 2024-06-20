@@ -29,6 +29,11 @@ namespace DazFileManager.Views
 
             var viewModel = DIContainer.ServiceProvider.GetRequiredService<ExtractViewModel>();
             DataContext = viewModel;
+            var leftColumn = new ExtractViewLeftColumn(viewModel);
+
+            // Add the leftColumn to your grid or any other container
+            // For example, if you have a grid named 'mainGrid':
+            //this.Content = leftColumn;
         }
     }
 }

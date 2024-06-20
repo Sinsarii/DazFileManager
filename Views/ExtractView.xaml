@@ -21,7 +21,7 @@
 
         <!--Left Main Column, Operational Buttons and Error Viewing Logging-->
         <local:ExtractViewLeftColumn Grid.Column="0" Margin="5"/>
-        
+
         <!--GridSplitter-->
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 

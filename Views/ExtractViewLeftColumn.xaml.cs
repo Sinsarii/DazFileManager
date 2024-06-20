@@ -25,5 +25,10 @@ namespace DazFileManager.Views
         {
             InitializeComponent();
         }
+        public ExtractViewLeftColumn(ExtractViewModel viewModel)
+        {
+            InitializeComponent();
+            DataContext = viewModel; // Set DataContext if needed
+        }
     }
 }
