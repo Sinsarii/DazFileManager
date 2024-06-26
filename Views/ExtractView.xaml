@@ -26,7 +26,7 @@
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
         <!--Right Main Column: List of Files-->
-        <ListView Grid.Column="1" ItemsSource="{Binding FileDetails}" SelectionMode="Single"> 
+        <ListView Grid.Column="2" ItemsSource="{Binding FileDetails}" SelectionMode="Single"> 
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>

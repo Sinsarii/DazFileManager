@@ -18,6 +18,9 @@ namespace DazFileManager.ViewModels
 
         public ObservableCollection<string> FolderCollection_Downloads => _folderCollectionService.FolderCollection_Downloads;
 
+        public ObservableCollection<string> Folders => _folderCollectionService.FolderCollection_Downloads;
+
+
 
         // Command that toggles selection
         public ICommand ToggleSelectCommand { get; }
@@ -34,6 +37,8 @@ namespace DazFileManager.ViewModels
             {
                 FileDetails.Add(file);
             }
+
+            _folderCollectionService.FolderCollection_Downloads.Add("C:\\Users\\mikol\\Downloads");
         }
 
         private void ToggleSelect(object parameter)

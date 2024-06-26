@@ -26,9 +26,12 @@ namespace DazFileManager.Infrastructure
             services.AddTransient<IFileScannerService, FileScannerService>();
             services.AddSingleton<FolderCollectionService>();
             services.AddTransient<MainWindow>();
-            services.AddTransient<MainViewModel>();
-            services.AddTransient<ExtractViewModel>();
+            //services.AddTransient<MainViewModel>();
+            //services.AddTransient<ExtractViewModel>();
             services.AddTransient<ExtractView>();
+
+            services.AddSingleton<MainViewModel>();
+            services.AddSingleton<ExtractViewModel>();
         }
     }
 }

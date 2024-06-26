@@ -22,13 +22,13 @@ namespace DazFileManager.Views
     public partial class CollapsibleFolderSelectionBox : UserControl
     {
         //define dependancy property for collection
-        public static DependencyProperty ItemsourceProperty = DependencyProperty.Register("ItemSource", typeof(IEnumerable), typeof(CollapsibleFolderSelectionBox));
+        public static DependencyProperty FoldersProperty = DependencyProperty.Register("Folders", typeof(IEnumerable), typeof(CollapsibleFolderSelectionBox));
 
         //bind the collection, public
-        public IEnumerable Itemsource
+        public IEnumerable Folders
         {
-            get { return (IEnumerable)GetValue(ItemsourceProperty); }
-            set { SetValue(ItemsourceProperty, value); }
+            get { return (IEnumerable)GetValue(FoldersProperty); }
+            set { SetValue(FoldersProperty, value); }
         }
 
         public CollapsibleFolderSelectionBox()
