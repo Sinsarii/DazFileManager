@@ -38,9 +38,13 @@ namespace DazFileManager.ViewModels
                 FileDetails.Add(file);
             }
 
-            _folderCollectionService.FolderCollection_Downloads.Add("C:\\Users\\mikol\\Downloads");
         }
 
+        // populate folder storage with saved folder favorites if available
+        private void LoadFileFavorites()
+        {
+            _folderCollectionService.FolderCollection_Downloads.Add("C:\\Users\\mikol\\Downloads");
+        }
         private void ToggleSelect(object parameter)
         {
             if (parameter is FileDetailModel fileDetail)
@@ -54,6 +58,7 @@ namespace DazFileManager.ViewModels
             _fileScannerService = fileScannerService;
             _folderCollectionService = folderCollectionService;
             LoadFileDetails();
+            LoadFileFavorites();
             //lambda expression here to initialize checkbox toggle relay so it can be used. throws an error if you dont initialize it with anything because relaycommand expects an action when intializing. only a problem on initialization. 
             ToggleSelectCommand = new RelayCommand(() => ToggleSelect(null));
         }
