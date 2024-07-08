@@ -11,19 +11,16 @@ namespace DazFileManager.Services
 {
     public class FolderCollectionService : INotifyPropertyChanged
     {
-        public ObservableCollection<string> FolderCollection_Downloads { get; set; }
-        public ObservableCollection<string> FolderCollection_Extraction { get; set; }
-        public ObservableCollection<string> FolderCollection_Archives {  get; set; }
-        public ObservableCollection<string> FolderCollection_Manifests {  get; set; }
-        public ObservableCollection<string> FolderCollection_Working {  get; set; }
+        private readonly AppSettings _appSettings;
+        public ObservableCollection<string> FolderCollection_Downloads => _appSettings.FolderCollection_Downloads;
+        public ObservableCollection<string> FolderCollection_Extraction => _appSettings.FolderCollection_Extraction;
+        public ObservableCollection<string> FolderCollection_Archives => _appSettings.FolderCollection_Archives;
+        public ObservableCollection<string> FolderCollection_Manifests => _appSettings.FolderCollection_Manifests;
+        public ObservableCollection<string> FolderCollection_Working => _appSettings.FolderCollection_Working;
 
-        public FolderCollectionService()
+        public FolderCollectionService(AppSettings appSettings)
         {
-            FolderCollection_Downloads = new ObservableCollection<string>();
-            FolderCollection_Extraction = new ObservableCollection<string>();
-            FolderCollection_Archives = new ObservableCollection<string>();
-            FolderCollection_Manifests = new ObservableCollection<string>();
-            FolderCollection_Working = new ObservableCollection<string>();
+            _appSettings = appSettings;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -23,12 +23,15 @@ namespace DazFileManager.Infrastructure
 
         private static void Configure (IServiceCollection services)
         {
-            services.AddTransient<IFileScannerService, FileScannerService>();
+            var appSettings = AppSettings.Load("appSettings.json");
+            services.AddSingleton(appSettings);
+
+            services.AddSingleton<IFileScannerService, FileScannerService>();
             services.AddSingleton<FolderCollectionService>();
-            services.AddTransient<MainWindow>();
+            services.AddSingleton<MainWindow>();
             //services.AddTransient<MainViewModel>();
             //services.AddTransient<ExtractViewModel>();
-            services.AddTransient<ExtractView>();
+            services.AddSingleton<ExtractView>();
 
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<ExtractViewModel>();
