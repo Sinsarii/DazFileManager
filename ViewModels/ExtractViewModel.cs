@@ -16,7 +16,7 @@ namespace DazFileManager.ViewModels
         private readonly FolderCollectionService _folderCollectionService;
         public ObservableCollection<FileDetailModel> FileDetails { get; } = new ObservableCollection<FileDetailModel>();
 
-        public ObservableCollection<string> FolderCollection_Downloads => _folderCollectionService.FolderCollection_Downloads;
+        //public ObservableCollection<string> FolderCollection_Downloads => _folderCollectionService.FolderCollection_Downloads;
 
         public ObservableCollection<string> Folders => _folderCollectionService.FolderCollection_Downloads;
 
@@ -32,7 +32,7 @@ namespace DazFileManager.ViewModels
             //FileDetails.Add(new FileDetailModel { Filename = "example.zip", Filesize = 1024, DownloadDate = DateTime.Now });
             //FileDetails.Add(new FileDetailModel { Filename = "sample.rar", Filesize = 2048, DownloadDate = DateTime.Now.AddDays(-1) });
 
-            var files = _fileScannerService.ScanFiles("C:\\Users\\mikol\\Downloads");
+            var files = _fileScannerService.ScanFiles("C:\\Users\\mikol\\Downloads\\FG Modern Deans Office");
             foreach(var file in files)
             {
                 FileDetails.Add(file);
@@ -58,7 +58,7 @@ namespace DazFileManager.ViewModels
             _fileScannerService = fileScannerService;
             _folderCollectionService = folderCollectionService;
             LoadFileDetails();
-            LoadFileFavorites();
+            //LoadFileFavorites();
             //lambda expression here to initialize checkbox toggle relay so it can be used. throws an error if you dont initialize it with anything because relaycommand expects an action when intializing. only a problem on initialization. 
             ToggleSelectCommand = new RelayCommand(() => ToggleSelect(null));
         }

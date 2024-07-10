@@ -21,8 +21,8 @@ namespace DazFileManager
             var mainWindow = DIContainer.ServiceProvider.GetService<MainWindow>();
             var mainViewModel = DIContainer.ServiceProvider.GetRequiredService<MainViewModel>();
 
-            mainWindow.DataContext = mainViewModel;
-            mainWindow.Show();
+            //mainWindow.DataContext = mainViewModel;
+            //mainWindow.Show();
 
             this.Exit += OnExit;
         }

@@ -28,13 +28,15 @@ namespace DazFileManager.Infrastructure
 
             services.AddSingleton<IFileScannerService, FileScannerService>();
             services.AddSingleton<FolderCollectionService>();
-            services.AddSingleton<MainWindow>();
+
             //services.AddTransient<MainViewModel>();
             //services.AddTransient<ExtractViewModel>();
+            services.AddSingleton<MainWindow>();
+            services.AddSingleton<MainViewModel>();
+
+            services.AddSingleton<ExtractViewModel>();
             services.AddSingleton<ExtractView>();
 
-            services.AddSingleton<MainViewModel>();
-            services.AddSingleton<ExtractViewModel>();
         }
     }
 }

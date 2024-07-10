@@ -21,6 +21,7 @@ namespace DazFileManager.Services
         public FolderCollectionService(AppSettings appSettings)
         {
             _appSettings = appSettings;
+            //LoadDefaultFolders();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
