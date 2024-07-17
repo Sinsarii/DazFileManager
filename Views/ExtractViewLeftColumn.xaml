@@ -14,8 +14,9 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <local:CollapsibleFolderSelectionBox Grid.Row="0" Folders="{Binding Folders}"/>
+        <local:CollapsibleFolderSelectionBox Grid.Row="0" Folders="{Binding FolderCollection_Downloads}"/>
         <!--ItemsSource="{Binding FolderCollection_Downloads}"-->
+        <local:CollapsibleFolderSelectionBox Grid.Row="1" Folders="{Binding FolderCollection_Archives}"/>
 
     </Grid>
 </UserControl>

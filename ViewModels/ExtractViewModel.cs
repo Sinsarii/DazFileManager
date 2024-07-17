@@ -18,9 +18,11 @@ namespace DazFileManager.ViewModels
 
         //public ObservableCollection<string> FolderCollection_Downloads => _folderCollectionService.FolderCollection_Downloads;
 
-        public ObservableCollection<string> Folders => _folderCollectionService.FolderCollection_Downloads;
+        //populate all drop-down menus with their respective collections. should just point to the collection that is generated from the service
+        public ObservableCollection<string> FolderCollection_Downloads => _folderCollectionService.FolderCollection_Downloads;
+        public ObservableCollection<string> FolderCollection_Archives => _folderCollectionService.FolderCollection_Archives;
 
-
+        
 
         // Command that toggles selection
         public ICommand ToggleSelectCommand { get; }
@@ -32,7 +34,7 @@ namespace DazFileManager.ViewModels
             //FileDetails.Add(new FileDetailModel { Filename = "example.zip", Filesize = 1024, DownloadDate = DateTime.Now });
             //FileDetails.Add(new FileDetailModel { Filename = "sample.rar", Filesize = 2048, DownloadDate = DateTime.Now.AddDays(-1) });
 
-            var files = _fileScannerService.ScanFiles("C:\\Users\\mikol\\Downloads\\FG Modern Deans Office");
+            var files = _fileScannerService.ScanFiles(FolderCollection_Downloads[0]);
             foreach(var file in files)
             {
                 FileDetails.Add(file);

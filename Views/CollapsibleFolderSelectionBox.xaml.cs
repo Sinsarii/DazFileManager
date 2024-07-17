@@ -58,6 +58,8 @@ namespace DazFileManager.Views
         {
             // Logic to add a new folder to the list
         }
+
+        
     }
 
 }
