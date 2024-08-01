@@ -10,11 +10,23 @@
     <Grid>
         <StackPanel>
             <Border BorderBrush="Gray" BorderThickness="1" Padding="10">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock x:Name="SelectedFolderText" Text="Selected Folder: " VerticalAlignment="Center"/>
-                    <Button x:Name="ExpandButton" Content="▼" Width="20" Height="20" Margin="5,0,0,0" Click="ExpandButton_Click"/>
-                    <Button x:Name="AddFolderButton" Content="Add Folder" Width="80" Height="20" Margin="5,0,0,0" Click="AddFolderButton_Click"/>
-                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock x:Name="SelectedFolderText" Text="Selected Folder: " VerticalAlignment="Center" Grid.Column="0"/>
+                        <ComboBox x:Name="FolderComboBox" Grid.Column="1" Margin="5,0,0,0"
+                              ItemsSource="{Binding Folders,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              SelectedItem="{Binding SelectedFolder, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
+                              IsEditable="True"/>
+                        <Button x:Name="ExpandButton" Content="▼" Width="20" Height="20" Margin="5,0,0,0" Click="ExpandButton_Click" Grid.Column="2"/>
+                        <Button x:Name="AddFolderButton" Content="Add Folder" Width="80" Height="20" Margin="5,0,0,0" Click="AddFolderButton_Click" Grid.Column="4"/>
+                    </StackPanel>
+                </Grid>
             </Border>
             <ListBox x:Name="FoldersListBox" Visibility="Collapsed" Margin="0,5,0,0" ItemsSource="{Binding Folders, RelativeSource={RelativeSource AncestorType=UserControl}}">
                 <!-- Example items, can be bound to a collection -->

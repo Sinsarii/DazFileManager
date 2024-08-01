@@ -24,6 +24,8 @@ namespace DazFileManager.Views
         //define dependancy property for collection
         public static DependencyProperty FoldersProperty = DependencyProperty.Register("Folders", typeof(IEnumerable), typeof(CollapsibleFolderSelectionBox));
 
+        public static readonly DependencyProperty SelectedFolderProperty = DependencyProperty.Register("SelectedFolder", typeof(string), typeof(CollapsibleFolderSelectionBox), new PropertyMetadata(default(string)));
+
         //bind the collection, public
         public IEnumerable Folders
         {
@@ -53,10 +55,19 @@ namespace DazFileManager.Views
         private void AddFolderButton_Click(object sender, RoutedEventArgs e)
         {
             // Logic to add a new folder to the list
+            if (Folders is IList foldersList && !string.IsNullOrEmpty(FolderComboBox.Text) && !foldersList.Contains(FolderComboBox.Text))
+            {
+                foldersList.Add(FolderComboBox.Text);
+                FolderComboBox.Text = string.Empty;
+            }
         }
         private void RemoveFolderButton_Click(object sender, RoutedEventArgs e)
         {
             // Logic to add a new folder to the list
+            if (sender is Button button && button.DataContext is string folder && Folders is IList foldersList)
+            {
+                foldersList.Remove(folder);
+            }
         }
 
         

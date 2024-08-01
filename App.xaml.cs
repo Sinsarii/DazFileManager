@@ -31,6 +31,7 @@ namespace DazFileManager
         {
             var appSettings = DIContainer.ServiceProvider.GetRequiredService<AppSettings>();
             appSettings.Save("appSettings.json");
+
         }
     }
 }

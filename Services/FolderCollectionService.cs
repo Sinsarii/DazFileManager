@@ -24,7 +24,6 @@ namespace DazFileManager.Services
             _appSettings = appSettings;
             //loadDummyData();
             LoadDefaultFolders();
-            //LoadDefaultFolders();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
