@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using DazFileManager.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DazFileManager.ViewModels
 {
@@ -14,7 +15,12 @@ namespace DazFileManager.ViewModels
     {
         private readonly IFileScannerService _fileScannerService;
         private readonly FolderCollectionService _folderCollectionService;
+
+        private readonly ParallelFileExtractorService _parallelFileExtractorService;
+        private readonly FileExtractionService _fileExtractionService;
+
         public ObservableCollection<FileDetailModel> FileDetails { get; } = new ObservableCollection<FileDetailModel>();
+
 
         //public ObservableCollection<string> FolderCollection_Downloads => _folderCollectionService.FolderCollection_Downloads;
 
@@ -26,6 +32,9 @@ namespace DazFileManager.ViewModels
 
         // Command that toggles selection
         public ICommand ToggleSelectCommand { get; }
+
+        public ICommand ExtractFilesCommand { get; }
+
 
         // Populate listview with file details
         private void LoadFileDetails()
@@ -55,14 +64,39 @@ namespace DazFileManager.ViewModels
             }
         }
 
-        public ExtractViewModel(IFileScannerService fileScannerService, FolderCollectionService folderCollectionService)
+
+        private async Task ExtractFilesAsync()
+        {
+            var selectedFiles = FileDetails.Where(fd => fd.IsSelected).Select(fd => fd.FilePath).ToList();
+            if (selectedFiles.Any())
+            {
+                await _fileExtractionService.Extract(selectedFiles[0], "C:\\Users\\mikol\\Downloads\\TestOutput");
+                //await _parallelFileExtractorService.ExtractFilesInParallelAsync("C:\\Users\\mikol\\Downloads\\TestOutput"); // Replace with actual path
+            }
+        }
+
+
+        public ExtractViewModel(
+            IFileScannerService fileScannerService, 
+            FolderCollectionService folderCollectionService,
+            ParallelFileExtractorService parallelFileExtractorService,
+            FileExtractionService fileExtractionService)
         {
             _fileScannerService = fileScannerService;
             _folderCollectionService = folderCollectionService;
+            _parallelFileExtractorService = parallelFileExtractorService;
+            _fileExtractionService = fileExtractionService;
             LoadFileDetails();
             //LoadFileFavorites();
             //lambda expression here to initialize checkbox toggle relay so it can be used. throws an error if you dont initialize it with anything because relaycommand expects an action when intializing. only a problem on initialization. 
             ToggleSelectCommand = new RelayCommand(() => ToggleSelect(null));
+            ExtractFilesCommand = new RelayCommand(async () => await ExtractFilesAsync());
+
+            if (ExtractFilesCommand == null)
+            {
+                throw new InvalidOperationException("ExtractFilesCommand is not initialized.");
+            }
+
         }
 
         public ExtractViewModel()

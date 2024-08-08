@@ -20,7 +20,8 @@ namespace DazFileManager.Services
                 {
                     Filename = fileInfo.Name,
                     Filesize = fileInfo.Length,
-                    DownloadDate = fileInfo.CreationTime
+                    DownloadDate = fileInfo.CreationTime,
+                    FilePath = fileInfo.FullName
                 };
 
             }

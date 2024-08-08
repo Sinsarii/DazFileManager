@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace DazFileManager.Services
 {
@@ -13,15 +15,19 @@ namespace DazFileManager.Services
     {
         public string currentFolder;
 
-        public string outputFolder;
-
-        public string workingFolder;
+        public string workingFolder = "C:\\Users\\mikol\\Downloads\\TestWorking";
 
         public async Task Extract(string zipFilePath, string dazContentFolderPath)
         {
             //create tempporary working directory, will be able to specify later
-            string tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            //string tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            string tempDir = workingFolder;
             Directory.CreateDirectory(tempDir);
+
+            if (!Directory.Exists(dazContentFolderPath))
+            {
+                Directory.CreateDirectory(dazContentFolderPath);
+            }
 
             try
             {
@@ -39,29 +45,61 @@ namespace DazFileManager.Services
             ///
         }
 
+        //Expected Behavior
+
+        //*
+        //Extract Held Zip, this task thread can't be made without it
+        //Move into Extracted Folder
+        //Check if directory contains 'Runtime' folder
+        //If Yes, move everything in this directory level and lower that is not a ZIPPED file
+        //If Not, Loop again and extract Zip
+        //*//
         private async Task ZipExtract(string zipFilePath, string tempDir, string contentFolderPath)
         {
-            await Task.Run(() => ZipFile.ExtractToDirectory(zipFilePath, tempDir));
-
-            foreach (var file in Directory.GetFiles(tempDir))
+            if(zipFilePath != null)
             {
-                if (Path.GetExtension(file).Equals(".zip", StringComparison.OrdinalIgnoreCase))
-                {
-                    string nestedTempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-                    Directory.CreateDirectory(nestedTempDirectory);
-
-                    await ZipExtract(file, nestedTempDirectory, contentFolderPath);
-                }
-                else
-                {
-                    MoveFileToDazContentFolder(file, contentFolderPath);
-                }
+                await Task.Run(() => ZipFile.ExtractToDirectory(zipFilePath, tempDir));
             }
 
-            foreach (var directory in Directory.GetFiles(tempDir))
+            //case insensitive check to make sure 'runtime' folder exists
+            bool runtimeFolderExists = Directory.EnumerateDirectories(tempDir).Any(dir => string.Equals(Path.GetFileName(dir), "runtime", StringComparison.OrdinalIgnoreCase));
+
+            if (runtimeFolderExists)
             {
-                MoveDirectoryContents(directory, contentFolderPath);
+                // If the 'runtime' folder exists, we are at the correct directory level and move everything at that level or lower
+                MoveDirectoryContents(tempDir, contentFolderPath);
+                return;
             }
+            else
+            {
+                foreach (var file in Directory.GetFiles(tempDir))
+                {
+                    if (Path.GetExtension(file).Equals(".zip", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //string nestedTempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+                        string nestedTempDirectory = Path.Combine(tempDir, Path.ChangeExtension(file, null));
+                        Directory.CreateDirectory(nestedTempDirectory);
+
+                        await ZipExtract(file, nestedTempDirectory, contentFolderPath);
+                    }
+                    //else
+                    //{
+                    //    MoveFileToDazContentFolder(file, contentFolderPath);
+                    //}
+                }
+
+                //foreach (var directory in Directory.GetDirectories(tempDir))
+                //{
+                //    MoveDirectoryContents(directory, contentFolderPath);
+                //}
+
+                //There are no more zipped files, now we check all folders
+            }
+            foreach (var directory in Directory.GetDirectories(tempDir))
+            {
+               await ZipExtract(null,directory, contentFolderPath);
+            }
+
         }
 
         private void MoveFileToDazContentFolder(string file, string contentFolderPath)

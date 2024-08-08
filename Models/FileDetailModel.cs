@@ -17,6 +17,8 @@ public class FileDetailModel : ViewModelBase
     public string Filename { get; set; }
     public long Filesize { get; set; }
     public DateTime DownloadDate { get; set; }
+    public string FilePath { get; set; }
+
 
     public RelayCommand ToggleSelectionCommand { get; }
 

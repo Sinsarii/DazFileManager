@@ -15,18 +15,30 @@
         <Grid.ColumnDefinitions>
             <!--Left Main Column, Operational Buttons and Error Viewing Logging-->
             <ColumnDefinition Width="2*"/>
+
             <!--Right Main Column, Listview of Files with information-->
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-
+        <Grid.RowDefinitions>
+            <!--Left Main Column, Operational Buttons-->
+            <RowDefinition Height="3*"/>
+            <!--Left Main Column, Error Logging-->
+            <RowDefinition Height="2*"/>
+            <!--Left Main Column, Extract Button-->
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        
         <!--Left Main Column, Operational Buttons and Error Viewing Logging-->
-        <local:ExtractViewLeftColumn Grid.Column="0" Margin="5"/>
+        <local:ExtractViewLeftColumn Grid.Column="0" Grid.Row="0"  Margin="5"/>
+        
+        <Button Grid.Column="0" Grid.Row="2" Margin="5" Content="Extract Files" Command="{Binding ExtractFilesCommand}" />
 
         <!--GridSplitter-->
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
+
         <!--Right Main Column: List of Files-->
-        <ListView Grid.Column="2" ItemsSource="{Binding FileDetails}" SelectionMode="Single"> 
+        <ListView Grid.Column="2" Grid.RowSpan="2" ItemsSource="{Binding FileDetails}" SelectionMode="Single"> 
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
