@@ -54,7 +54,8 @@ namespace DazFileManager.ViewModels
         // populate folder storage with saved folder favorites if available
         private void LoadFileFavorites()
         {
-            _folderCollectionService.FolderCollection_Downloads.Add("C:\\Users\\mikol\\Downloads");
+            _folderCollectionService.FolderCollection_Downloads.Clear();
+            _folderCollectionService.FolderCollection_Downloads.Add("C:\\Users\\mikol\\Downloads\\testZips");
         }
         private void ToggleSelect(object parameter)
         {
@@ -70,8 +71,14 @@ namespace DazFileManager.ViewModels
             var selectedFiles = FileDetails.Where(fd => fd.IsSelected).Select(fd => fd.FilePath).ToList();
             if (selectedFiles.Any())
             {
-                await _fileExtractionService.Extract(selectedFiles[0], "C:\\Users\\mikol\\Downloads\\TestOutput");
-                //await _parallelFileExtractorService.ExtractFilesInParallelAsync("C:\\Users\\mikol\\Downloads\\TestOutput"); // Replace with actual path
+                foreach (var selectedZippedFile in selectedFiles)
+                {
+
+                    await _fileExtractionService.Extract(selectedZippedFile, "C:\\Users\\mikol\\Downloads\\TestOutput");
+                    //await _fileExtractionService.Extract(selectedFiles[0], "C:\\Users\\mikol\\Downloads\\TestOutput");
+                    //await _parallelFileExtractorService.ExtractFilesInParallelAsync("C:\\Users\\mikol\\Downloads\\TestOutput"); // Replace with actual path
+                }
+
             }
         }
 
@@ -86,8 +93,9 @@ namespace DazFileManager.ViewModels
             _folderCollectionService = folderCollectionService;
             _parallelFileExtractorService = parallelFileExtractorService;
             _fileExtractionService = fileExtractionService;
+            LoadFileFavorites();
             LoadFileDetails();
-            //LoadFileFavorites();
+
             //lambda expression here to initialize checkbox toggle relay so it can be used. throws an error if you dont initialize it with anything because relaycommand expects an action when intializing. only a problem on initialization. 
             ToggleSelectCommand = new RelayCommand(() => ToggleSelect(null));
             ExtractFilesCommand = new RelayCommand(async () => await ExtractFilesAsync());
