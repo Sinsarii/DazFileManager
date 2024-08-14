@@ -68,7 +68,32 @@ namespace DazFileManager.ViewModels
 
         private async Task ExtractFilesAsync()
         {
+            bool extractParallel = true;
+
             var selectedFiles = FileDetails.Where(fd => fd.IsSelected).Select(fd => fd.FilePath).ToList();
+
+            ObservableCollection<string> selectedFilesCollection = new ObservableCollection<string>(FileDetails.Where(file => file.IsSelected).Select(file => file.FilePath));
+
+            if (selectedFilesCollection.Any())
+            {
+                if(extractParallel == true)
+                {
+                    await _parallelFileExtractorService.ExtractFilesInParallelAsync(selectedFilesCollection, "C:\\Users\\mikol\\Downloads\\TestOutput");
+                }
+                else
+                {
+                    foreach (var selectedZippedFile in selectedFiles)
+                    {
+
+                        await _fileExtractionService.Extract(selectedZippedFile, "C:\\Users\\mikol\\Downloads\\TestOutput");
+                        //await _fileExtractionService.Extract(selectedFiles[0], "C:\\Users\\mikol\\Downloads\\TestOutput");
+                        //await _parallelFileExtractorService.ExtractFilesInParallelAsync("C:\\Users\\mikol\\Downloads\\TestOutput"); // Replace with actual path
+                    }
+                }
+            }
+
+
+            /*
             if (selectedFiles.Any())
             {
                 foreach (var selectedZippedFile in selectedFiles)
@@ -80,6 +105,7 @@ namespace DazFileManager.ViewModels
                 }
 
             }
+            */
         }
 
 

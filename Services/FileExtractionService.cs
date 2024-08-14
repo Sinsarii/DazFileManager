@@ -21,7 +21,8 @@ namespace DazFileManager.Services
         {
             //create tempporary working directory, will be able to specify later
             //string tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            string tempDir = workingFolder;
+            //string tempDir = workingFolder;
+            string tempDir = Path.Combine(workingFolder, Path.GetFileNameWithoutExtension(zipFilePath));
             Directory.CreateDirectory(tempDir);
 
             if (!Directory.Exists(dazContentFolderPath))

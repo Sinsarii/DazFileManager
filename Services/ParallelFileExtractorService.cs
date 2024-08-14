@@ -37,12 +37,12 @@ namespace DazFileManager.Services
             }
         }
 
-        public async Task ExtractFilesInParallelAsync(string dazContentFolderPath, CancellationToken cancellationToken = default)
+        public async Task ExtractFilesInParallelAsync(ObservableCollection<string> fileCollection, string dazContentFolderPath, CancellationToken cancellationToken = default)
         {
             _dazContentFolderPath = dazContentFolderPath;
             _cancellationToken = cancellationToken;
 
-            var tasks = _fileCollection.Select(filePath => ExtractWithSemaphoreAsync(filePath, dazContentFolderPath, cancellationToken));
+            var tasks = fileCollection.Select(filePath => ExtractWithSemaphoreAsync(filePath, dazContentFolderPath, cancellationToken));
             await Task.WhenAll(tasks);
         }
         public async Task ExtractWithSemaphoreAsync(string filePath, string dazContentFolderPath, CancellationToken cancellationToken = default)
